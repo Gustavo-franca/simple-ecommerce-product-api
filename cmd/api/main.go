@@ -3,7 +3,7 @@ package main
 import (
 	"go.uber.org/fx"
 	"simpleecommerceproductapi/internal"
-	"simpleecommerceproductapi/search"
+	"simpleecommerceproductapi/product/search/searchfx"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 func newApp() *fx.App {
 	modules := fx.Options(
 		internal.Module,
-		search.Module,
+		searchfx.Module,
 	)
 
 	return fx.New(modules)

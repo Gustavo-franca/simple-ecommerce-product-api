@@ -58,8 +58,8 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "Id")
-
+	id := chi.URLParam(r, "id")
+	
 	res, err := h.service.SearchByID(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
