@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    networks:
+      - db-net
+    volumes:
+      - ./mysql/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=product
+      - MYSQL_USER=simple-eccomerce
+      - MYSQL_PASSWORD=simple-eccomerce
+      - MYSQL_ROOT_PASSWORD=simple-eccomerce
+      - LANG=C.UTF-8
+    ports:
+      - 3306:3306
+    command: [ "mysqld","--default-authentication-plugin=mysql_native_password" ]
+networks:
+  db-net: { }
