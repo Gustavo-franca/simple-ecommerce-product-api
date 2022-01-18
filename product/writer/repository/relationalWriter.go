@@ -1,6 +1,7 @@
 package repository
 
 import (
+	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 	"simpleecommerceproductapi/product"
 )
@@ -16,6 +17,7 @@ func NewRelationalWriter(db *gorm.DB) RelationalWriter {
 }
 
 func (w RelationalWriter) Create(entity product.Entity) (string, error) {
+	entity.ID = uuid.NewV4().String()
 	err := w.db.Create(&entity).Error
 	if err != nil {
 		return "", err
