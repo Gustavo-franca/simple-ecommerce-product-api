@@ -77,5 +77,6 @@ func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 func transformToParams(query url.Values) (search.Params, error) {
 	return search.Params{
 		Description: query.Get("description"),
+		Title:       query.Get("title"),
 	}, nil
 }
