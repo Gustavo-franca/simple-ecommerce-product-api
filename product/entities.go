@@ -9,6 +9,9 @@ type (
 	}
 )
 
+func (Entity) TableName() string {
+	return "products"
+}
 func Migrate(db *gorm.DB) error {
 	return db.AutoMigrate(&Entity{})
 }
