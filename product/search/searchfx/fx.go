@@ -14,6 +14,6 @@ var Module = fx.Options(
 
 	fx.Provide(
 		func(u usecases.Reader) handler.Service { return &u },
-		func(m repository.ReaderMock) usecases.RepositoryReader { return &m },
+		func(m repository.RelationalReader) usecases.RepositoryReader { return &m },
 	),
 )
