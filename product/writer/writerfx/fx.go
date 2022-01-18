@@ -14,6 +14,6 @@ var Module = fx.Options(
 
 	fx.Provide(
 		func(u usecases.Writer) handler.CreateService { return &u },
-		func(m repository.WriterMock) usecases.RepositoryWriter { return &m },
+		func(m repository.RelationalWriter) usecases.RepositoryWriter { return &m },
 	),
 )
