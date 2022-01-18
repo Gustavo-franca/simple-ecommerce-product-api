@@ -59,7 +59,7 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 
 func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	
+
 	res, err := h.service.SearchByID(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -75,7 +75,7 @@ func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func transformToParams(query url.Values) (search.Params, error) {
-	_ = query.Get("category")
-	_ = query.Get("")
-	return search.Params{}, nil
+	return search.Params{
+		Description: query.Get("description"),
+	}, nil
 }
