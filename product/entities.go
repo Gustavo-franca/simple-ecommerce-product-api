@@ -11,7 +11,7 @@ type (
 	Entity struct {
 		ID            string  `json:"id,omitempty"`
 		Title         string  `json:"title,omitempty"`
-		Description   string  `json:"description,omitempty"`
+		Description   string  `json:"description,omitempty" gorm:"size:5000"`
 		Price         float64 `json:"price,omitempty"`
 		PreviousPrice float64 `json:"previousPrice,omitempty"`
 		Rate          float64 `json:"rate,omitempty"`

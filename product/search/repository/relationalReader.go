@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 	"simpleecommerceproductapi/product"
 	"simpleecommerceproductapi/product/search"
+	"strings"
 )
 
 type (
@@ -15,6 +16,7 @@ type (
 
 const GetByDescriptionConditions = "description LIKE ?"
 const GetByTitleConditions = "title LIKE ?"
+const GetByIDsConditions = "id IN(?)"
 
 func NewRelationalReader(db *gorm.DB) RelationalReader {
 	return RelationalReader{db: db}
@@ -27,6 +29,10 @@ func (r RelationalReader) GetByParams(params search.Params) ([]product.Entity, e
 	}
 	if params.Title != "" {
 		tx = tx.Or(GetByTitleConditions, "%"+params.Title+"%")
+	}
+
+	if len(params.IDs) > 0 && params.IDs[0] != "" {
+		tx = tx.Or(GetByIDsConditions, strings.Join(params.IDs, ","))
 	}
 	err := tx.Find(&products).Error
 	return products, err

@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"simpleecommerceproductapi/product"
 	"simpleecommerceproductapi/product/search"
+	"strings"
 )
 
 const (
@@ -78,5 +79,6 @@ func transformToParams(query url.Values) (search.Params, error) {
 	return search.Params{
 		Description: query.Get("description"),
 		Title:       query.Get("title"),
+		IDs:         strings.Split(query.Get("ids"), ","),
 	}, nil
 }
