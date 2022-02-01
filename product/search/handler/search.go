@@ -46,6 +46,7 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 	res, err := h.service.SearchByFilters(params)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	resJSON, err := json.Marshal(res)
 	if err != nil {
@@ -54,7 +55,6 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(resJSON)
-	return
 
 }
 
@@ -64,6 +64,7 @@ func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	res, err := h.service.SearchByID(id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	resJSON, err := json.Marshal(res)
 	if err != nil {
@@ -72,7 +73,6 @@ func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(resJSON)
-	return
 }
 
 func transformToParams(query url.Values) (search.Params, error) {
