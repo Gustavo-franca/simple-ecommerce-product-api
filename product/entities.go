@@ -10,15 +10,15 @@ import (
 type (
 	Entity struct {
 		ID            string  `json:"id,omitempty"`
-		Title         string  `json:"title,omitempty"`
-		Description   string  `json:"description,omitempty" gorm:"size:5000"`
-		Price         float64 `json:"price,omitempty"`
-		PreviousPrice float64 `json:"previousPrice,omitempty"`
-		Rate          float64 `json:"rate,omitempty"`
-		ShippingPrice float64 `json:"shippingPrice,omitempty"`
-		Stock         uint64  `json:"stock,omitempty"`
-		ImgURL        string  `json:"imgUrl,omitempty"`
-		Images        Images  `json:"images,omitempty" gorm:"size:10000"`
+		Title         string  `json:"title"`
+		Description   string  `json:"description" gorm:"size:5000"`
+		Price         float64 `json:"price"`
+		PreviousPrice float64 `json:"previousPrice"`
+		Rate          float64 `json:"rate"`
+		ShippingPrice float64 `json:"shippingPrice"`
+		Stock         uint64  `json:"stock"`
+		ImgURL        string  `json:"imgUrl"`
+		Images        Images  `json:"images" gorm:"size:10000"`
 	}
 	Images []string
 )

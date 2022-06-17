@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"database/sql"
 	"gorm.io/gorm"
 	"simpleecommerceproductapi/product"
@@ -20,9 +21,9 @@ const GetByIDsConditions = "id IN ?"
 func NewRelationalReader(db *gorm.DB) RelationalReader {
 	return RelationalReader{db: db}
 }
-func (r RelationalReader) GetByParams(params search.Params) ([]product.Entity, error) {
+func (r RelationalReader) GetByParams(ctx context.Context, params search.Params) ([]product.Entity, error) {
 	var products []product.Entity
-	tx := r.db.Begin(&sql.TxOptions{ReadOnly: true})
+	tx := r.db.WithContext(ctx).Begin(&sql.TxOptions{ReadOnly: true})
 	if params.Description != "" {
 		tx = tx.Or(GetByDescriptionConditions, "%"+params.Description+"%")
 	}
@@ -39,9 +40,9 @@ func (r RelationalReader) GetByParams(params search.Params) ([]product.Entity, e
 	return products, err
 }
 
-func (r RelationalReader) GetByID(id string) (product.Entity, error) {
+func (r RelationalReader) GetByID(ctx context.Context, id string) (product.Entity, error) {
 	var p product.Entity
-	err := r.db.First(&p, product.Entity{
+	err := r.db.WithContext(ctx).First(&p, product.Entity{
 		ID: id,
 	}).Error
 	return p, err

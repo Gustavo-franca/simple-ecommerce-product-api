@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -17,8 +18,8 @@ const (
 
 type (
 	Service interface {
-		SearchByFilters(params search.Params) ([]product.Entity, error)
-		SearchByID(id string) (product.Entity, error)
+		SearchByFilters(ctx context.Context, params search.Params) ([]product.Entity, error)
+		SearchByID(ctx context.Context, id string) (product.Entity, error)
 	}
 
 	SearchHandler struct {
@@ -43,7 +44,7 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := h.service.SearchByFilters(params)
+	res, err := h.service.SearchByFilters(r.Context(), params)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -61,7 +62,7 @@ func (h SearchHandler) GetByFilters(w http.ResponseWriter, r *http.Request) {
 func (h SearchHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
-	res, err := h.service.SearchByID(id)
+	res, err := h.service.SearchByID(r.Context(), id)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

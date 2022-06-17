@@ -14,6 +14,7 @@ services:
       - DATABASE_ADDRESS=tcp(mysql:3306)
       - DATABASE_NAME=product
       - PORT=9000
+      - TRACER_HOST=host.docker.internal
     ports:
       - "9000:9000"
     depends_on:

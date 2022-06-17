@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-chi/chi/v5"
+	"github.com/riandyrn/otelchi"
 	"go.uber.org/fx"
 	"net/http"
 	"os"
@@ -35,6 +36,7 @@ func Cors(next http.Handler) http.Handler {
 func NewRouter() chi.Router {
 	handler := chi.NewRouter()
 	handler.Use(Cors)
+	handler.Use(otelchi.Middleware("product-api", otelchi.WithChiRoutes(handler)))
 	return handler
 }
 

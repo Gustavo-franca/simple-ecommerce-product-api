@@ -1,13 +1,16 @@
 package usecases
 
-import "simpleecommerceproductapi/product"
+import (
+	"context"
+	"simpleecommerceproductapi/product"
+)
 
 type (
 	Writer struct {
 		repository RepositoryWriter
 	}
 	RepositoryWriter interface {
-		Create(product product.Entity) (string, error)
+		Create(ctx context.Context, product product.Entity) (string, error)
 	}
 )
 
@@ -16,6 +19,6 @@ func NewCreate(repository RepositoryWriter) Writer {
 		repository: repository,
 	}
 }
-func (r Writer) Create(params product.Entity) (string, error) {
-	return r.repository.Create(params)
+func (r Writer) Create(ctx context.Context, params product.Entity) (string, error) {
+	return r.repository.Create(ctx, params)
 }

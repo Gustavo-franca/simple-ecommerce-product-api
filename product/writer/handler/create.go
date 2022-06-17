@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
 	"net/http"
@@ -13,7 +14,7 @@ const (
 
 type (
 	CreateService interface {
-		Create(product product.Entity) (string, error)
+		Create(ctx context.Context, product product.Entity) (string, error)
 	}
 
 	CreateHandler struct {
@@ -41,7 +42,7 @@ func (h CreateHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := h.service.Create(p)
+	res, err := h.service.Create(r.Context(), p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
